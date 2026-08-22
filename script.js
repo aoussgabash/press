@@ -28,6 +28,12 @@ if (homeMenuLink) {
 }
 
 const pressInquiryHref = 'mailto:aoussgabash@ieee.org?subject=Gabash%20Academic%20Press%20Inquiry';
+const pressContactMenuLink = navigation?.querySelector('a[href="#contact"]');
+if (pressContactMenuLink) {
+  pressContactMenuLink.classList.add('ag-contact-menu-link');
+  pressContactMenuLink.innerHTML = '✉ Contact | التواصل';
+}
+
 const pressContactButton = document.querySelector('#contact a[href^="mailto:"]');
 if (pressContactButton) pressContactButton.href = pressInquiryHref;
 
