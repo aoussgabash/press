@@ -21,34 +21,40 @@ if (pressNav && pressBrand && !pressNav.querySelector('.ag-home-button')) {
   headerLeft.append(homeButton, pressBrand);
 }
 
+const homeMenuLink = navigation?.querySelector('a[href="https://aoussgabash.com"]');
+if (homeMenuLink) {
+  homeMenuLink.classList.add('ag-home-menu-link');
+  homeMenuLink.innerHTML = '⌂ AG Home | الموقع الأم';
+}
+
+const closeMenu = () => {
+  if (!menuButton || !navigation) return;
+  navigation.classList.remove('open');
+  menuButton.setAttribute('aria-expanded', 'false');
+  menuButton.setAttribute('aria-label', 'Open navigation');
+  menuButton.textContent = '☰';
+};
+
 if (menuButton && navigation) {
   menuButton.addEventListener('click', (event) => {
     event.stopPropagation();
     const isOpen = navigation.classList.toggle('open');
     menuButton.setAttribute('aria-expanded', String(isOpen));
     menuButton.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+    menuButton.textContent = isOpen ? '×' : '☰';
   });
 
   navigation.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      navigation.classList.remove('open');
-      menuButton.setAttribute('aria-expanded', 'false');
-      menuButton.setAttribute('aria-label', 'Open navigation');
-    });
+    link.addEventListener('click', closeMenu);
   });
 
   document.addEventListener('click', (event) => {
-    if (!navigation.contains(event.target) && !menuButton.contains(event.target)) {
-      navigation.classList.remove('open');
-      menuButton.setAttribute('aria-expanded', 'false');
-      menuButton.setAttribute('aria-label', 'Open navigation');
-    }
+    if (!navigation.contains(event.target) && !menuButton.contains(event.target)) closeMenu();
   });
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
-      navigation.classList.remove('open');
-      menuButton.setAttribute('aria-expanded', 'false');
+      closeMenu();
       menuButton.focus();
     }
   });
