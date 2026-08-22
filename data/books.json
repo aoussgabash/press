@@ -1,0 +1,32 @@
+[
+  {
+    "id": "GAP-001",
+    "title": "AI Applications in Electrical Power Systems",
+    "title_ar": "تطبيقات الذكاء الاصطناعي في أنظمة الطاقة الكهربائية",
+    "author": "Aouss Gabash",
+    "year": "Planned",
+    "status": "In preparation",
+    "status_ar": "قيد الإعداد",
+    "series": "Artificial Intelligence & Electrical Power",
+    "language": "English–Arabic",
+    "format": "PDF",
+    "isbn": "To be assigned",
+    "cover_code": "AI",
+    "summary": "A bilingual academic work connecting artificial intelligence methods with modern electrical power systems."
+  },
+  {
+    "id": "GAP-002",
+    "title": "Electrical Illumination Engineering",
+    "title_ar": "هندسة الإنارة الكهربائية",
+    "author": "Aouss Gabash",
+    "year": "Planned",
+    "status": "New edition planned",
+    "status_ar": "طبعة جديدة مخطط لها",
+    "series": "Electrical Engineering",
+    "language": "Arabic",
+    "format": "PDF",
+    "isbn": "To be assigned",
+    "cover_code": "EI",
+    "summary": "A revised digital academic edition of the engineering title first published in Arabic."
+  }
+]
