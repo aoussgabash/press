@@ -4,6 +4,31 @@ const yearElement = document.querySelector('#year');
 
 if (yearElement) yearElement.textContent = String(new Date().getFullYear());
 
+const pressNav = document.querySelector('header nav');
+const pressBrand = pressNav?.querySelector('.brand');
+if (pressNav && pressBrand && !pressNav.querySelector('.ag-home-button')) {
+  const headerLeft = document.createElement('div');
+  headerLeft.className = 'ag-header-left';
+
+  const homeButton = document.createElement('a');
+  homeButton.className = 'ag-home-button';
+  homeButton.href = 'https://aoussgabash.com';
+  homeButton.setAttribute('aria-label', 'AG Home | الموقع الأم');
+  homeButton.title = 'AG Home | الموقع الأم';
+  homeButton.innerHTML = '<span aria-hidden="true">⌂</span>';
+
+  pressBrand.before(headerLeft);
+  headerLeft.append(homeButton, pressBrand);
+}
+
+if (navigation && !navigation.querySelector('[data-ag-home-link]')) {
+  const homeMenuLink = document.createElement('a');
+  homeMenuLink.href = 'https://aoussgabash.com';
+  homeMenuLink.dataset.agHomeLink = 'true';
+  homeMenuLink.innerHTML = '⌂ AG Home | الموقع الأم';
+  navigation.appendChild(homeMenuLink);
+}
+
 if (menuButton && navigation) {
   menuButton.addEventListener('click', (event) => {
     event.stopPropagation();
