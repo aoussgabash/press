@@ -21,14 +21,6 @@ if (pressNav && pressBrand && !pressNav.querySelector('.ag-home-button')) {
   headerLeft.append(homeButton, pressBrand);
 }
 
-if (navigation && !navigation.querySelector('[data-ag-home-link]')) {
-  const homeMenuLink = document.createElement('a');
-  homeMenuLink.href = 'https://aoussgabash.com';
-  homeMenuLink.dataset.agHomeLink = 'true';
-  homeMenuLink.innerHTML = '⌂ AG Home | الموقع الأم';
-  navigation.appendChild(homeMenuLink);
-}
-
 if (menuButton && navigation) {
   menuButton.addEventListener('click', (event) => {
     event.stopPropagation();
