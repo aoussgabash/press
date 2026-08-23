@@ -1,0 +1,64 @@
+name: Synchronize canonical AG footer
+
+on:
+  push:
+    paths:
+      - '.github/workflows/sync-global-footer-v2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace all static footers
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          footer = '''<footer class="site-footer ag-canonical-footer">
+  <div class="container ag-footer-inner">
+    <p class="ag-footer-line">© 2026 Dr.-Ing. Aouss Gabash <span aria-hidden="true">|</span> <span lang="ar" dir="rtl">الدكتور المهندس أوس غباش</span></p>
+    <p class="ag-footer-line">AG Academic Ecosystem <span aria-hidden="true">|</span> <span lang="ar" dir="rtl">منظومة AG الأكاديمية</span></p>
+    <p class="ag-footer-line">Germany <span aria-hidden="true">|</span> <span lang="ar" dir="rtl">ألمانيا</span> <span aria-hidden="true">•</span> Syria <span aria-hidden="true">|</span> <span lang="ar" dir="rtl">سوريا</span></p>
+  </div>
+</footer>'''
+
+          css = '''
+<style id="ag-canonical-footer-style">
+.ag-canonical-footer{background:#06101c;border-top:1px solid rgba(255,255,255,.1);padding:42px 0;color:#aebfd0}
+.ag-footer-inner{width:min(1180px,92%);margin:auto;display:flex;flex-direction:column;gap:14px;align-items:flex-start;text-align:left}
+.ag-footer-line{margin:0;font-size:clamp(.92rem,2.7vw,1.08rem);line-height:1.8}
+@media(max-width:620px){.ag-canonical-footer{padding:34px 0}.ag-footer-inner{gap:12px}.ag-footer-line{font-size:.92rem}}
+</style>
+'''
+
+          changed=[]
+          for p in Path('.').rglob('*.html'):
+              if '.git' in p.parts or '.github' in p.parts:
+                  continue
+              s=p.read_text(encoding='utf-8',errors='ignore')
+              old=s
+              s=re.sub(r'<style id="ag-canonical-footer-style">[\s\S]*?</style>\s*','',s,flags=re.I)
+              if re.search(r'<footer\b',s,re.I):
+                  s=re.sub(r'<footer\b[^>]*>[\s\S]*?</footer>',footer,s,flags=re.I)
+              else:
+                  s=s.replace('</body>',footer+'\n</body>',1)
+              s=s.replace('</head>',css+'</head>',1)
+              if s!=old:
+                  p.write_text(s,encoding='utf-8')
+                  changed.append(str(p))
+          print('\n'.join(changed) if changed else 'No HTML changes required')
+          PY
+      - name: Commit HTML changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- '*.html'
+          git diff --cached --quiet && exit 0
+          git commit -m "Use canonical AG footer on all press pages"
+          git push
