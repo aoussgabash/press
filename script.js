@@ -1,41 +1,5 @@
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.navlinks');
-const yearElement = document.querySelector('#year');
-
-if (yearElement) yearElement.textContent = String(new Date().getFullYear());
-
-const pressNav = document.querySelector('header nav');
-const pressBrand = pressNav?.querySelector('.brand');
-if (pressNav && pressBrand && !pressNav.querySelector('.ag-home-button')) {
-  const headerLeft = document.createElement('div');
-  headerLeft.className = 'ag-header-left';
-
-  const homeButton = document.createElement('a');
-  homeButton.className = 'ag-home-button';
-  homeButton.href = 'https://aoussgabash.com';
-  homeButton.setAttribute('aria-label', 'AG Home | الموقع الأم');
-  homeButton.title = 'AG Home | الموقع الأم';
-  homeButton.innerHTML = '<span aria-hidden="true">⌂</span>';
-
-  pressBrand.before(headerLeft);
-  headerLeft.append(homeButton, pressBrand);
-}
-
-const homeMenuLink = navigation?.querySelector('a[href="https://aoussgabash.com"]');
-if (homeMenuLink) {
-  homeMenuLink.classList.add('ag-home-menu-link');
-  homeMenuLink.innerHTML = '⌂ AG Home | الموقع الأم';
-}
-
-const pressInquiryHref = 'mailto:aoussgabash@ieee.org?subject=Gabash%20Academic%20Press%20Inquiry';
-const pressContactMenuLink = navigation?.querySelector('a[href="#contact"]');
-if (pressContactMenuLink) {
-  pressContactMenuLink.classList.add('ag-contact-menu-link');
-  pressContactMenuLink.innerHTML = '✉ Contact | التواصل';
-}
-
-const pressContactButton = document.querySelector('#contact a[href^="mailto:"]');
-if (pressContactButton) pressContactButton.href = pressInquiryHref;
 
 const closeMenu = () => {
   if (!menuButton || !navigation) return;
@@ -100,7 +64,7 @@ loadPublications();
 
 if (!document.querySelector('script[data-ag-loader]')) {
   const loader = document.createElement('script');
-  loader.src = 'https://aoussgabash.com/assets/shared/ag-loader.js?v=20260824-1';
+  loader.src = 'https://aoussgabash.com/assets/shared/ag-loader.js?v=20260824-3';
   loader.defer = true;
   loader.dataset.agLoader = 'true';
   document.body.appendChild(loader);
