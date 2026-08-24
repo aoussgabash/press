@@ -4,39 +4,6 @@ const yearElement = document.querySelector('#year');
 
 if (yearElement) yearElement.textContent = String(new Date().getFullYear());
 
-/* Load the same canonical footer stylesheet used across the AG ecosystem. */
-if (!document.querySelector('link[data-canonical-footer]')) {
-  const footerStyles = document.createElement('link');
-  footerStyles.rel = 'stylesheet';
-  footerStyles.href = 'canonical-footer.css?v=20260823-3';
-  footerStyles.dataset.canonicalFooter = 'true';
-  document.head.appendChild(footerStyles);
-}
-
-/* Normalize the existing footer markup without rebuilding or duplicating it. */
-const pressFooter = document.querySelector('.site-footer.ag-canonical-footer');
-if (pressFooter) {
-  pressFooter.querySelectorAll('.ag-footer-line').forEach((line) => {
-    [...line.childNodes].forEach((node) => {
-      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-        const text = document.createElement('span');
-        text.className = 'footer-en';
-        text.textContent = node.textContent;
-        node.replaceWith(text);
-      }
-    });
-
-    line.querySelectorAll('span[lang="ar"]').forEach((span) => {
-      span.classList.add('footer-ar');
-    });
-
-    line.querySelectorAll('span[aria-hidden="true"]').forEach((span) => {
-      span.classList.add('footer-separator');
-      if (span.textContent.trim() === '•') span.classList.add('footer-dot');
-    });
-  });
-}
-
 const pressNav = document.querySelector('header nav');
 const pressBrand = pressNav?.querySelector('.brand');
 if (pressNav && pressBrand && !pressNav.querySelector('.ag-home-button')) {
@@ -130,3 +97,11 @@ async function loadPublications() {
 }
 
 loadPublications();
+
+if (!document.querySelector('script[data-ag-central-footer]')) {
+  const centralFooter = document.createElement('script');
+  centralFooter.src = 'https://aoussgabash.com/assets/shared/ag-footer.js?v=20260824-1';
+  centralFooter.defer = true;
+  centralFooter.dataset.agCentralFooter = 'true';
+  document.body.appendChild(centralFooter);
+}
