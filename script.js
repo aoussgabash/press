@@ -1,5 +1,16 @@
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.navlinks');
+const headerNav = document.querySelector('header nav');
+const brand = headerNav?.querySelector('.brand');
+
+const homeLink = navigation?.querySelector('a[href="https://aoussgabash.com"], a[href="https://aoussgabash.com/"]');
+if (homeLink && headerNav && brand) {
+  homeLink.className = 'ag-home-button ag-shared-home-link';
+  homeLink.setAttribute('aria-label', 'AG Home | الموقع الأم');
+  homeLink.title = 'AG Home | الموقع الأم';
+  homeLink.innerHTML = '<span aria-hidden="true">⌂</span>';
+  headerNav.insertBefore(homeLink, brand);
+}
 
 const closeMenu = () => {
   if (!menuButton || !navigation) return;
